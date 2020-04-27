@@ -21,12 +21,12 @@ foreach ($container in $containers){
 		ContainerName =  $((docker inspect --format '{{ .Name }}' $container).trim('/'))
 		DockerID = docker inspect --format '{{ .Config.Hostname }}' $container
 		Image = docker inspect --format '{{ .Config.Image }}' $container
-		IpAddress     = docker inspect $container --format '{{ .NetworkSettings.IPAddress }}'
+		IpAddress = docker inspect $container --format '{{ .NetworkSettings.IPAddress }}'
 		GateWay = docker inspect -f '{{range .NetworkSettings.Networks}}{{.Gateway}}{{end}}' $container
 		MacAddress = docker inspect -f '{{range .NetworkSettings.Networks}}{{.MacAddress}}{{end}}' $container
 		Status = $stat = docker inspect --format '{{ .State.Status }}' $container 
 		Started = (($(docker inspect --format '{{ .State.StartedAt}}' $container)) -as [datetime]).toLocalTime()
-		RunningAge =if($stat -eq 'running'){(get-date) - (($(docker inspect --format '{{ .State.StartedAt}}' $container)) -as [datetime]).toLocalTime()}
+		RunningAge = if($stat -eq 'running'){(get-date) - (($(docker inspect --format '{{ .State.StartedAt}}' $container)) -as [datetime]).toLocalTime()}
 	})
 }
 $repotTable | sort-object Status|  ft
