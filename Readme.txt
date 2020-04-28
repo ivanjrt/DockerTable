@@ -8,4 +8,3 @@ Run the script from the host of the Docker, A report will be shwon in the termin
 
 .AUTHOR
 ivanjrt @ gmail.com
-#>
